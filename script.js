@@ -1,0 +1,93 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('nav');
+
+    hamburger.addEventListener('click', () => {
+        nav.classList.toggle('active');
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const typingElement = document.getElementById('typing');
+    const words = ["Python FullStock Developer"];
+    let wordIndex = 0;
+    let letterIndex = 0;
+    let currentWord = '';
+    let currentLetters = '';
+    let isDeleting = false;
+    function type() {
+        if (isDeleting) {
+            currentLetters = currentWord.substring(0, letterIndex - 1);
+            letterIndex--;
+        } else {
+            currentLetters = currentWord.substring(0, letterIndex + 1);
+            letterIndex++;
+        }
+
+        typingElement.innerHTML = currentLetters;
+
+        let typeSpeed = 200;
+        if (isDeleting) {
+            typeSpeed /= 2;
+        }
+
+        if (!isDeleting && letterIndex === currentWord.length) {
+            typeSpeed = 2000;
+            isDeleting = true;
+        } else if (isDeleting && letterIndex === 0) {
+            isDeleting = false;
+            wordIndex++;
+            if (wordIndex === words.length) {
+                wordIndex = 0;
+            }
+            currentWord = words[wordIndex];
+            typeSpeed = 500;
+        }
+
+        setTimeout(type, typeSpeed);
+    }
+    currentWord = words[wordIndex];
+    type();
+});
+
+
+
+// project 
+document.addEventListener("scroll", function () {
+    let projectCards = document.querySelectorAll(".project-card");
+    projectCards.forEach(card => {
+        let cardPosition = card.getBoundingClientRect().top;
+        let screenPosition = window.innerHeight / 1.2;
+        if (cardPosition < screenPosition) {
+            card.style.transform = "translateY(0)";
+            card.style.opacity = "1";
+        } else {
+            card.style.transform = "translateY(50px)";
+            card.style.opacity = "0";
+        }
+    });
+});
